@@ -1,4 +1,4 @@
-/node_modules/
-/test.js
-/.travis.yml
-*.html
+.vscode
+src
+.gitignore
+tsconfig.json
