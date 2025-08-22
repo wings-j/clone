@@ -1,6 +1,11 @@
 {
   "name": "@wings-j/clone",
   "version": "0.0.0",
+  "keywords": [
+    "clone",
+    "deep",
+    "prototype"
+  ],
   "type": "module",
   "main": "dist/index.js",
   "author": "WingsJ",
