@@ -5,7 +5,7 @@
 function clone<T = any>(origin: T): T {
   let cache = new Map<any, any>();
 
-  if (typeof origin !== 'object' || origin === null) {
+  if (typeof origin !== 'object' || origin === null || origin instanceof WeakMap || origin instanceof WeakSet) {
     return origin;
   } else {
     if (cache.has(origin)) {
@@ -27,18 +27,24 @@ function clone<T = any>(origin: T): T {
         result.name = origin.name;
         result.message = origin.message;
         result.stack = origin.stack;
-      } else if (origin instanceof RegExp) {
-        result = new RegExp(origin.source, origin.flags);
-      } else if (origin instanceof Buffer) {
-        result = Buffer.from(origin);
       } else if (origin instanceof Promise) {
         result = new Promise((resolve, reject) => {
           origin.then(value => resolve(clone(value))).catch(error => reject(clone(error)));
         });
-      } else if (origin instanceof File) {
-        result = new File([origin], origin.name);
+      } else if (origin instanceof RegExp) {
+        result = new RegExp(origin.source, origin.flags);
       } else if (origin instanceof URL) {
         result = new URL(origin.href);
+      } else if (origin instanceof File) {
+        result = new File([origin], origin.name);
+      } else if (origin instanceof Buffer) {
+        result = Buffer.from(origin);
+      } else if (origin instanceof ArrayBuffer) {
+        result = origin.slice();
+      } else if (origin instanceof DataView) {
+        result = new DataView(clone(origin.buffer), origin.byteOffset, origin.byteLength);
+      } else if (ArrayBuffer.isView(origin)) {
+        result = new constructor(origin);
       }
 
       if (result) {

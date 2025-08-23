@@ -4,10 +4,12 @@ Non-enumerable properties will not be maintained. Objects will be cloned with sa
 
 - Basic types: undefined, null, bool, number, string, symbol
 - Function
+- WeakMap
+- WeakSet
 
 Watch that:
 
-- This library use modern Javascript syntax such as `Object.getPrototypeOf`, so it can not be use in legacy environments.
+- This library use modern Javascript syntax such as `ESM`, `Object.getPrototypeOf`, so it can not be use in legacy environments.
 - If the original object is a custom class whose constructor may throw errors, this library may fail.
 
 # Installation
