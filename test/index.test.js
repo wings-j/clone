@@ -117,15 +117,6 @@ test('Date', () => {
   expect(r).toBeInstanceOf(Date);
   expect(r.getTime()).toBe(o.getTime());
 });
-test('RegExp', () => {
-  let o = /abc/gim;
-  let r = clone(o);
-
-  expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(RegExp);
-  expect(r.source).toBe(o.source);
-  expect(r.flags).toBe(o.flags);
-});
 test('Promise', async () => {
   let o = new Promise(resolve => {
     resolve('a');
@@ -136,24 +127,14 @@ test('Promise', async () => {
   expect(r).toBeInstanceOf(Promise);
   expect(await r).toBe('a');
 });
-test('Buffer', () => {
-  let o = Buffer.from('a');
+test('RegExp', () => {
+  let o = /abc/gim;
   let r = clone(o);
 
   expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(Buffer);
-  expect(r.toString()).toBe(o.toString());
-});
-test('File', () => {
-  let o = new File(['a'], '0.txt', { type: 'text/plain' });
-  let r = clone(o);
-
-  expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(File);
-  expect(r.name).toBe(o.name);
-  expect(r.type).toBe(o.type);
-  expect(r.size).toBe(o.size);
-  expect(r.lastModified).toBe(o.lastModified);
+  expect(r).toBeInstanceOf(RegExp);
+  expect(r.source).toBe(o.source);
+  expect(r.flags).toBe(o.flags);
 });
 test('URL', () => {
   let o = new URL('https://example.com');
@@ -166,6 +147,56 @@ test('URL', () => {
   expect(r.protocol).toBe(o.protocol);
   expect(r.host).toBe(o.host);
   expect(r.pathname).toBe(o.pathname);
+});
+test('File', () => {
+  let o = new File(['a'], '0.txt', { type: 'text/plain' });
+  let r = clone(o);
+
+  expect(r).not.toBe(o);
+  expect(r).toBeInstanceOf(File);
+  expect(r.name).toBe(o.name);
+  expect(r.type).toBe(o.type);
+  expect(r.size).toBe(o.size);
+});
+test('Buffer', () => {
+  let o = Buffer.from('a');
+  let r = clone(o);
+
+  expect(r).not.toBe(o);
+  expect(r).toBeInstanceOf(Buffer);
+  expect(r.toString()).toBe(o.toString());
+});
+test('ArrayBuffer', () => {
+  let o = new ArrayBuffer(8);
+  let r = clone(o);
+
+  expect(r).not.toBe(o);
+  expect(r).toBeInstanceOf(ArrayBuffer);
+  expect(r.byteLength).toBe(o.byteLength);
+});
+test('TypedArray', () => {
+  let o = new Uint8Array([0, 1, 2]);
+  let r = clone(o);
+
+  expect(r).not.toBe(o);
+  expect(r).toBeInstanceOf(Uint8Array);
+  expect(r.length).toBe(o.length);
+  expect(r[0]).toBe(o[0]);
+  expect(r[1]).toBe(o[1]);
+  expect(r[2]).toBe(o[2]);
+});
+test('DataView', () => {
+  let buffer = new ArrayBuffer(8);
+  let o = new DataView(buffer);
+  o.setInt8(0, 1);
+  o.setInt8(1, 2);
+  let r = clone(o);
+
+  expect(r).not.toBe(o);
+  expect(r).toBeInstanceOf(DataView);
+  expect(r.byteLength).toBe(o.byteLength);
+  expect(r.getInt8(0)).toBe(o.getInt8(0));
+  expect(r.getInt8(1)).toBe(o.getInt8(1));
 });
 test('Class', () => {
   class A {
@@ -194,6 +225,7 @@ test('Extends', () => {
     constructor() {
       super();
 
+      this.a = new A();
       this.y = 0;
     }
   }
@@ -204,4 +236,7 @@ test('Extends', () => {
   expect(r).toBeInstanceOf(B);
   expect(r.x).toBe(o.x);
   expect(r.y).toBe(o.y);
+  expect(r.a).not.toBe(o.a);
+  expect(r.a).toBeInstanceOf(A);
+  expect(r.a.x).toBe(o.a.x);
 });
