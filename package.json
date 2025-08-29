@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --watch",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
     "release": "npm publish --access public"
   },
   "devDependencies": {
