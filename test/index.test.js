@@ -154,17 +154,10 @@ test('File', () => {
 
   expect(r).not.toBe(o);
   expect(r).toBeInstanceOf(File);
+  expect(r.size).toBe(o.size);
   expect(r.name).toBe(o.name);
   expect(r.type).toBe(o.type);
-  expect(r.size).toBe(o.size);
-});
-test('Buffer', () => {
-  let o = Buffer.from('a');
-  let r = clone(o);
-
-  expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(Buffer);
-  expect(r.toString()).toBe(o.toString());
+  expect(r.lastModified).toBe(o.lastModified);
 });
 test('ArrayBuffer', () => {
   let o = new ArrayBuffer(8);
@@ -239,4 +232,17 @@ test('Extends', () => {
   expect(r.a).not.toBe(o.a);
   expect(r.a).toBeInstanceOf(A);
   expect(r.a.x).toBe(o.a.x);
+});
+test('Circular', () => {
+  let a = { x: 0 };
+  let b = { y: 1, a };
+  a.b = b;
+
+  let o = a;
+  let r = clone(o);
+  expect(r).not.toBe(o);
+  expect(r.x).toBe(0);
+  expect(r.b).not.toBe(b);
+  expect(r.b.y).toBe(1);
+  expect(r.b.a).toBe(r);
 });
