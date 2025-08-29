@@ -154,17 +154,10 @@ test('File', () => {
 
   expect(r).not.toBe(o);
   expect(r).toBeInstanceOf(File);
+  expect(r.size).toBe(o.size);
   expect(r.name).toBe(o.name);
   expect(r.type).toBe(o.type);
-  expect(r.size).toBe(o.size);
-});
-test('Buffer', () => {
-  let o = Buffer.from('a');
-  let r = clone(o);
-
-  expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(Buffer);
-  expect(r.toString()).toBe(o.toString());
+  expect(r.lastModified).toBe(o.lastModified);
 });
 test('ArrayBuffer', () => {
   let o = new ArrayBuffer(8);

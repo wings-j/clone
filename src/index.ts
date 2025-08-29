@@ -36,9 +36,7 @@ function clone<T = any>(origin: T): T {
       } else if (origin instanceof URL) {
         result = new URL(origin.href);
       } else if (origin instanceof File) {
-        result = new File([origin], origin.name);
-      } else if (origin instanceof Buffer) {
-        result = Buffer.from(origin);
+        result = new File([origin], origin.name, { type: origin.type, lastModified: origin.lastModified });
       } else if (origin instanceof ArrayBuffer) {
         result = origin.slice();
       } else if (origin instanceof DataView) {
