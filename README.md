@@ -11,6 +11,7 @@ Watch that:
 
 - This library use modern Javascript syntax such as `ESM`, `Object.getPrototypeOf`, so it can not be use in legacy environments.
 - If the original object is a custom class whose constructor may throw errors, this library may fail.
+- Only writable members can be copied.
 
 # Installation
 
