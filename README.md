@@ -35,6 +35,7 @@ let o = new A();
 let r = clone(o);
 
 console.log(r === o); // false
+console.log(r instanceof A); // true
 console.log(r.x === o.x); // true
 console.log(r.y === o.y); // true
 console.log(r.z === o.z); // true
