@@ -22,7 +22,7 @@ function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T 
     } else {
       let result: any;
       let prototype = Object.getPrototypeOf(origin);
-      let constructor = Object.getPrototypeOf(origin).constructor;
+      let constructor = prototype.constructor;
 
       if (origin instanceof Boolean) {
         result = new Boolean(origin);
@@ -38,7 +38,10 @@ function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T 
         result.stack = origin.stack;
       } else if (origin instanceof Promise) {
         result = new Promise((resolve, reject) => {
-          origin.then(value => resolve(cloneWithCache(value, cache))).catch(error => reject(cloneWithCache(error, cache)));
+          origin.then(
+            value => resolve(cloneWithCache(value, cache)),
+            error => reject(cloneWithCache(error, cache))
+          );
         });
       } else if (origin instanceof Date) {
         result = new Date(origin.getTime());
@@ -55,7 +58,7 @@ function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T 
       } else if (ArrayBuffer.isView(origin)) {
         result = new constructor(origin);
       } else if (origin instanceof Array) {
-        result = new Array();
+        result = [];
         cache.set(origin, result); // Need to set cache before cloning properties.
 
         for (let a of origin) {
@@ -75,14 +78,13 @@ function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T 
         for (let value of origin.values()) {
           result.add(cloneWithCache(value, cache));
         }
-      }
-
-      if (result) {
-        Object.setPrototypeOf(result, prototype);
       } else {
         result = Object.create(prototype);
       }
 
+      if (result) {
+        Object.setPrototypeOf(result, prototype);
+      }
       cache.set(origin, result);
       assignProperties(origin, result, cache);
 
