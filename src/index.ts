@@ -1,7 +1,7 @@
 /**
  * Clone
  * @param [origin] Origin
- * @param [cache] Cache
+ * @return Cloned Value
  */
 function clone<T = any>(origin: T) {
   return cloneWithCache(origin);
