@@ -14,7 +14,7 @@ function clone<T = any>(origin: T) {
  * @return Cloned Value
  */
 function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T {
-  if (typeof origin !== 'object' || origin === null || origin instanceof WeakMap || origin instanceof WeakSet) {
+  if (typeof origin !== 'object' || origin === null || origin instanceof WeakMap || origin instanceof WeakSet || origin instanceof Blob) {
     return origin;
   } else {
     if (cache.has(origin)) {
@@ -46,8 +46,6 @@ function cloneWithCache<T = any>(origin: T, cache = new WeakMap<any, any>()): T 
         result = new RegExp(origin.source, origin.flags);
       } else if (origin instanceof URL) {
         result = new URL(origin.href);
-      } else if (origin instanceof File) {
-        result = new File([origin], origin.name, { type: origin.type, lastModified: origin.lastModified });
       } else if (origin instanceof ArrayBuffer) {
         result = origin.slice();
       } else if (origin instanceof DataView) {
