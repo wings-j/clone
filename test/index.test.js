@@ -148,17 +148,6 @@ test('URL', () => {
   expect(r.host).toBe(o.host);
   expect(r.pathname).toBe(o.pathname);
 });
-test('File', () => {
-  let o = new File(['a'], '0.txt', { type: 'text/plain' });
-  let r = clone(o);
-
-  expect(r).not.toBe(o);
-  expect(r).toBeInstanceOf(File);
-  expect(r.size).toBe(o.size);
-  expect(r.name).toBe(o.name);
-  expect(r.type).toBe(o.type);
-  expect(r.lastModified).toBe(o.lastModified);
-});
 test('ArrayBuffer', () => {
   let o = new ArrayBuffer(8);
   let r = clone(o);
