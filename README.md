@@ -6,6 +6,7 @@ Non-enumerable properties will not be maintained. Objects will be cloned with sa
 - Function
 - WeakMap
 - WeakSet
+- Blob and File
 
 Watch that:
 
