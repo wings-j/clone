@@ -1,6 +1,6 @@
-Deeply clone arbitrary objects in Javascript.
+Deeply clone arbitrary objects in JavaScript.
 
-Non-enumerable properties will not be maintained. Objects will be cloned with same prototype, while following variables will not be cloned:
+Non-enumerable properties will not be preserved. Objects will be cloned with the same prototype, while the following types will not be cloned:
 
 - Basic types: undefined, null, bool, number, string, symbol
 - Function
@@ -8,11 +8,11 @@ Non-enumerable properties will not be maintained. Objects will be cloned with sa
 - WeakSet
 - Blob and File
 
-Watch that:
+Please note:
 
-- This library use modern Javascript syntax such as `ESM`, `Object.getPrototypeOf`, so it can not be use in legacy environments.
+- This library uses modern JavaScript syntax such as `ESM` and `Object.getPrototypeOf`, so it cannot be used in legacy environments.
 - If the original object is a custom class whose constructor may throw errors, this library may fail.
-- Only writable members can be copied.
+- Only writable properties can be cloned.
 
 # Installation
 
