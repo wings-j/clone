@@ -1,3 +1,6 @@
+![Jest](https://img.shields.io/badge/Jest-passing-brightgreen.svg?logo=jest&logoColor=white)
+![npm](https://img.shields.io/npm/v/@wings-j/clone.svg?label=NPM)
+
 Deeply clone arbitrary objects in JavaScript.
 
 Non-enumerable properties will not be preserved. Objects will be cloned with the same prototype, while the following types will not be cloned:
