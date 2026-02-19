@@ -16,7 +16,7 @@ jobs:
       - run: npm ci
       - run: npm build
 
-  publish-npm:
+  publish:
     needs: build
     runs-on: ubuntu-latest
     steps:
