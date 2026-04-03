@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { clone } from '../dist';
 
 test('Undefined', () => {
