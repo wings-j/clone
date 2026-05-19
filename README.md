@@ -44,3 +44,5 @@ console.log(r.x === o.x); // true
 console.log(r.y === o.y); // true
 console.log(r.z === o.z); // true
 ```
+
+test
