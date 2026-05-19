@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { clone } from '../dist';
 
 test('Undefined', () => {
@@ -187,6 +188,13 @@ test('Class', () => {
       this.y = 0;
       this.z = '';
     }
+
+    get xValue() {
+      return this.x;
+    }
+    set xValue(v) {
+      this.x = v;
+    }
   }
   let o = new A();
   let r = clone(o);
@@ -196,6 +204,9 @@ test('Class', () => {
   expect(r.x).toBe(o.x);
   expect(r.y).toBe(o.y);
   expect(r.z).toBe(o.z);
+  expect(r.xValue).toBe(o.xValue);
+  r.xValue = true;
+  expect(r.xValue).toBe(true);
 });
 test('Extends', () => {
   class A {
